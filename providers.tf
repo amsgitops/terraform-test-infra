@@ -12,6 +12,7 @@ provider "aws" {
 
   default_tags {
     tags = {
+      Name         = "CodeKeeperService"
       RepositoryId = "amsgitops/terraform-test-infra"
       Environment  = var.environment
       ManagedBy    = "Terraform"
