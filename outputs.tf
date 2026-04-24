@@ -23,11 +23,6 @@ output "web_security_group_id" {
   value       = aws_security_group.web.id
 }
 
-output "alb_dns_name" {
-  description = "ALB DNS name"
-  value       = aws_lb.web.dns_name
-}
-
 output "db_endpoint" {
   description = "RDS endpoint"
   value       = aws_db_instance.main.endpoint

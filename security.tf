@@ -44,12 +44,10 @@ resource "aws_security_group" "db" {
     security_groups = [aws_security_group.web.id]
   }
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  # No egress rule: AWS security groups are stateful; return traffic for
+  # established inbound connections is automatically permitted without an
+  # explicit egress rule. Omitting egress prevents the DB from initiating
+  # any outbound connections.
 
   tags = {
     Name = "${var.project_name}-db-sg"
@@ -62,11 +60,11 @@ resource "aws_security_group" "bastion" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    description = "SSH"
+    description = "SSH from trusted operator CIDR"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/8"]
+    cidr_blocks = [var.bastion_allowed_cidr]
   }
 
   egress {
