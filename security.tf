@@ -56,18 +56,13 @@ resource "aws_security_group" "db" {
   }
 }
 
+# Bastion host is accessed exclusively via AWS Systems Manager Session Manager.
+# No SSH ingress rule is required; all interactive access goes through SSM,
+# which does not require inbound port 22 to be open.
 resource "aws_security_group" "bastion" {
   name        = "${var.project_name}-bastion-sg"
-  description = "Security group for bastion host"
+  description = "Security group for bastion host (SSM access only)"
   vpc_id      = aws_vpc.main.id
-
-  ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/8"]
-  }
 
   egress {
     from_port   = 0
