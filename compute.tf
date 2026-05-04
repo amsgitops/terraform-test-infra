@@ -35,9 +35,10 @@ resource "aws_instance" "web" {
 
 resource "aws_instance" "bastion" {
   ami                    = data.aws_ami.amazon_linux.id
-  instance_type          = "t3.micro"
+  instance_type          = var.instance_type
   subnet_id              = aws_subnet.public[0].id
   vpc_security_group_ids = [aws_security_group.bastion.id]
+  key_name               = var.bastion_key_name
 
   tags = {
     Name = "${var.project_name}-bastion"
