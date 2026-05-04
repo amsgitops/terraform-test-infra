@@ -15,25 +15,41 @@ variable "project_name" {
 
 variable "vpc_cidr" {
   description = "VPC CIDR block"
-  default     = "10.0.0.0/16"
+  type        = string
+  default     = "172.16.0.0/16"
 }
 
 variable "public_subnet_cidrs" {
   description = "Public subnet CIDR blocks"
   type        = list(string)
-  default     = ["10.0.1.0/24", "10.0.2.0/24"]
+  default     = ["172.16.1.0/24", "172.16.2.0/24"]
 }
 
 variable "private_subnet_cidrs" {
   description = "Private subnet CIDR blocks"
   type        = list(string)
-  default     = ["10.0.10.0/24", "10.0.11.0/24"]
+  default     = ["172.16.10.0/24", "172.16.11.0/24"]
 }
 
 variable "enable_nat_gateway" {
   description = "Enable NAT Gateway for private subnets"
   type        = bool
   default     = false
+}
+
+variable "trusted_ssh_cidr" {
+  description = "Trusted external CIDR allowed to SSH into the bastion host (e.g. your corporate egress IP: \"203.0.113.10/32\")"
+  type        = string
+
+  validation {
+    condition     = !contains(["0.0.0.0/0", "::/0"], var.trusted_ssh_cidr)
+    error_message = "trusted_ssh_cidr must not be 0.0.0.0/0 or ::/0. Provide a specific trusted CIDR (e.g. \"203.0.113.10/32\")."
+  }
+}
+
+variable "bastion_key_name" {
+  description = "Name of the EC2 key pair to use for bastion SSH access"
+  type        = string
 }
 
 variable "instance_type" {
