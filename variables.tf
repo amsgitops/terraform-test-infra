@@ -13,6 +13,11 @@ variable "project_name" {
   default     = "codekeeper-test"
 }
 
+variable "project_display_name" {
+  description = "Human-readable project name used for display purposes (e.g. SNS topic display names)"
+  default     = "CodeKeeper Test"
+}
+
 variable "vpc_cidr" {
   description = "VPC CIDR block"
   default     = "10.0.0.0/16"
