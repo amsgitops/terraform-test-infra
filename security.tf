@@ -62,17 +62,26 @@ resource "aws_security_group" "bastion" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    description = "SSH"
+    description = "SSH from permitted external CIDRs"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/8"]
+    cidr_blocks = var.bastion_allowed_cidrs
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    description = "SSH to internal VPC resources"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr]
+  }
+
+  egress {
+    description = "HTTPS for SSM endpoints"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 

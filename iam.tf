@@ -65,3 +65,39 @@ resource "aws_iam_instance_profile" "web_server" {
   name = "${var.project_name}-web-server-profile"
   role = aws_iam_role.web_server.name
 }
+
+# ---------------------------------------------------------------------------
+# Bastion host IAM role — grants SSM Session Manager access so the bastion
+# can be reached via AWS Systems Manager as a fallback to SSH, and enables
+# CloudWatch agent log shipping for session auditability.
+# ---------------------------------------------------------------------------
+resource "aws_iam_role" "bastion" {
+  name = "${var.project_name}-bastion-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      }
+    ]
+  })
+
+  tags = {
+    Name = "${var.project_name}-bastion-role"
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "bastion_ssm" {
+  role       = aws_iam_role.bastion.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
+resource "aws_iam_instance_profile" "bastion" {
+  name = "${var.project_name}-bastion-profile"
+  role = aws_iam_role.bastion.name
+}
