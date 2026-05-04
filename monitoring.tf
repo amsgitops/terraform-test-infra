@@ -1,6 +1,6 @@
 resource "aws_sns_topic" "alerts" {
   name         = "${var.project_name}-alerts"
-  display_name = "${var.project_name} Alerts"
+  display_name = var.sns_topic_display_name
 }
 
 resource "aws_sns_topic_subscription" "email" {

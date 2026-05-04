@@ -55,3 +55,8 @@ variable "alarm_email" {
   description = "Email for CloudWatch alarm notifications"
   default     = "alerts@example.com"
 }
+
+variable "sns_topic_display_name" {
+  description = "Display name for the SNS alerts topic"
+  default     = "CodeKeeper E2E Test"
+}
