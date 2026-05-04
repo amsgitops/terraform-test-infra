@@ -1,5 +1,6 @@
 resource "aws_sns_topic" "alerts" {
-  name = "${var.project_name}-alerts"
+  name         = "${var.project_name}-alerts"
+  display_name = "${var.project_name} Alerts"
 }
 
 resource "aws_sns_topic_subscription" "email" {
