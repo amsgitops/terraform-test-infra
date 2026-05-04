@@ -15,19 +15,20 @@ variable "project_name" {
 
 variable "vpc_cidr" {
   description = "VPC CIDR block"
-  default     = "10.0.0.0/16"
+  type        = string
+  default     = "172.16.0.0/16"
 }
 
 variable "public_subnet_cidrs" {
   description = "Public subnet CIDR blocks"
   type        = list(string)
-  default     = ["10.0.1.0/24", "10.0.2.0/24"]
+  default     = ["172.16.1.0/24", "172.16.2.0/24"]
 }
 
 variable "private_subnet_cidrs" {
   description = "Private subnet CIDR blocks"
   type        = list(string)
-  default     = ["10.0.10.0/24", "10.0.11.0/24"]
+  default     = ["172.16.10.0/24", "172.16.11.0/24"]
 }
 
 variable "enable_nat_gateway" {
@@ -54,4 +55,14 @@ variable "db_name" {
 variable "alarm_email" {
   description = "Email for CloudWatch alarm notifications"
   default     = "alerts@example.com"
+}
+
+variable "ssh_ingress_cidr" {
+  description = "CIDR block permitted to SSH into the bastion host (e.g., corporate VPN or office IP range)"
+  type        = string
+}
+
+variable "bastion_key_name" {
+  description = "EC2 key pair name for bastion host SSH access"
+  type        = string
 }
