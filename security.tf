@@ -62,11 +62,11 @@ resource "aws_security_group" "bastion" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    description = "SSH"
+    description = "SSH from trusted operator IPs"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/8"]
+    cidr_blocks = var.bastion_allowed_cidrs
   }
 
   egress {
