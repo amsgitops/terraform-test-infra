@@ -15,19 +15,34 @@ variable "project_name" {
 
 variable "vpc_cidr" {
   description = "VPC CIDR block"
-  default     = "10.0.0.0/16"
+  default     = "172.16.0.0/16"
 }
 
 variable "public_subnet_cidrs" {
   description = "Public subnet CIDR blocks"
   type        = list(string)
-  default     = ["10.0.1.0/24", "10.0.2.0/24"]
+  default     = ["172.16.1.0/24", "172.16.2.0/24"]
 }
 
 variable "private_subnet_cidrs" {
   description = "Private subnet CIDR blocks"
   type        = list(string)
-  default     = ["10.0.10.0/24", "10.0.11.0/24"]
+  default     = ["172.16.10.0/24", "172.16.11.0/24"]
+}
+
+variable "bastion_ingress_cidrs" {
+  description = "CIDR blocks permitted to SSH into the bastion host (e.g. corporate/operator IPs)"
+  type        = list(string)
+
+  validation {
+    condition     = !contains(var.bastion_ingress_cidrs, "0.0.0.0/0") && !contains(var.bastion_ingress_cidrs, "::/0")
+    error_message = "bastion_ingress_cidrs must not contain 0.0.0.0/0 or ::/0. Restrict SSH to known operator CIDRs only."
+  }
+}
+
+variable "bastion_key_name" {
+  description = "EC2 key pair name for bastion host SSH access"
+  type        = string
 }
 
 variable "enable_nat_gateway" {
