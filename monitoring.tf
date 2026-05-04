@@ -1,5 +1,6 @@
 resource "aws_sns_topic" "alerts" {
-  name = "${var.project_name}-alerts"
+  name         = "${var.project_name}-alerts"
+  display_name = "CodeKeeper Test Alerts"
 }
 
 resource "aws_sns_topic_subscription" "email" {
