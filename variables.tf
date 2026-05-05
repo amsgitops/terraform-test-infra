@@ -53,13 +53,7 @@ variable "db_name" {
 
 variable "alarm_email" {
   description = "Email address for CloudWatch alarm notifications"
-  type        = string
-  nullable    = false
-
-  validation {
-    condition     = can(regex("^[^@]+@[^@]+\\.[^@]+$", var.alarm_email))
-    error_message = "alarm_email must be a valid email address (e.g. user@example.com)."
-  }
+  default     = "alerts@example.com"
 }
 
 variable "sns_display_name" {
