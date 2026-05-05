@@ -24,7 +24,9 @@ resource "aws_cloudwatch_metric_alarm" "web_cpu" {
   statistic           = "Average"
   threshold           = 80
   alarm_description   = "Web server CPU utilization is high"
-  alarm_actions       = [aws_sns_topic.alerts.arn]
+  alarm_actions             = [aws_sns_topic.alerts.arn]
+  ok_actions                = [aws_sns_topic.alerts.arn]
+  insufficient_data_actions = [aws_sns_topic.alerts.arn]
 
   dimensions = {
     InstanceId = aws_instance.web.id
