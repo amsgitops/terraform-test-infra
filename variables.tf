@@ -52,6 +52,6 @@ variable "db_name" {
 }
 
 variable "alarm_email" {
-  description = "Email for CloudWatch alarm notifications"
-  default     = "alerts@example.com"
+  description = "Email address for CloudWatch alarm notifications"
+  type        = string
 }

@@ -1,6 +1,11 @@
 resource "aws_sns_topic" "alerts" {
   name         = "${var.project_name}-alerts"
-  display_name = "CodeKeeper E2E Test"
+  display_name = "" # Explicitly empty to match live resource state; omitting causes drift
+
+  tags = {
+    Name        = "${var.project_name}-alerts"
+    Environment = var.environment
+  }
 }
 
 resource "aws_sns_topic_subscription" "email" {
@@ -23,5 +28,10 @@ resource "aws_cloudwatch_metric_alarm" "web_cpu" {
 
   dimensions = {
     InstanceId = aws_instance.web.id
+  }
+
+  tags = {
+    Name        = "${var.project_name}-web-cpu-high"
+    Environment = var.environment
   }
 }
