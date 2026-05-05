@@ -1,6 +1,6 @@
 resource "aws_sns_topic" "alerts" {
   name         = "${var.project_name}-alerts"
-  display_name = "CodeKeeper E2E 1777945717"
+  display_name = "CodeKeeper E2E Test"
 
   tags = {
     Name        = "${var.project_name}-alerts"
