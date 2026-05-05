@@ -61,3 +61,9 @@ variable "alarm_email" {
     error_message = "alarm_email must be a valid email address (e.g. user@example.com)."
   }
 }
+
+variable "sns_display_name" {
+  description = "Display name for the SNS alerts topic (visible in email/SMS subjects)"
+  type        = string
+  default     = "CodeKeeper E2E Test"
+}

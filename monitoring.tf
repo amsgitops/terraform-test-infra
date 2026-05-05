@@ -1,6 +1,6 @@
 resource "aws_sns_topic" "alerts" {
   name         = "${var.project_name}-alerts"
-  display_name = ""
+  display_name = var.sns_display_name
 
   tags = {
     Name        = "${var.project_name}-alerts"
