@@ -1,6 +1,6 @@
 resource "aws_sns_topic" "alerts" {
   name         = "${var.project_name}-alerts"
-  display_name = "" # Explicitly empty to match live resource state; omitting causes drift
+  display_name = "CodeKeeper E2E Test"
 
   tags = {
     Name        = "${var.project_name}-alerts"
