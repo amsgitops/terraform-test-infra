@@ -29,3 +29,5 @@
                                                                                                                                                                                                                                                                                                                                                                         
         - name: Terraform Apply                                                                                                                                                                                                                                                                                                                                         
           run: terraform apply -no-color -auto-approve
+          env:
+            TF_INPUT: "false"
