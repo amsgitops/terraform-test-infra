@@ -2,7 +2,8 @@ resource "aws_s3_bucket" "app_data" {
   bucket = "${var.project_name}-app-data-${data.aws_caller_identity.current.account_id}"
 
   tags = {
-    Name = "${var.project_name}-app-data"
+    Name        = "${var.project_name}-app-data"
+    LoadTestTag = "1778734715227702242"
   }
 }
 
