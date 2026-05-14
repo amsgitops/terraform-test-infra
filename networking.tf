@@ -22,6 +22,8 @@ resource "aws_subnet" "public" {
   tags = {
     Name = "${var.project_name}-public-${count.index + 1}"
     Tier = "public"
+    # LoadTestTag targets subnet-03c0df3cf0cfdfca8 (index 0 / 10.0.1.0/24)
+    LoadTestTag = count.index == 0 ? "1778727842558200588" : null
   }
 }
 
