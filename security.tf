@@ -26,9 +26,12 @@ resource "aws_security_group" "web" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    Name = "${var.project_name}-web-sg"
-  }
+  tags = merge(
+    {
+      Name = "${var.project_name}-web-sg"
+    },
+    var.load_test_tag != null ? { LoadTestTag = var.load_test_tag } : {}
+  )
 }
 
 resource "aws_security_group" "db" {

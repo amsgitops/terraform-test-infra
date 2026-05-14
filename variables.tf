@@ -61,3 +61,14 @@ variable "sns_display_name" {
   type        = string
   default     = "CodeKeeper E2E 1778731955"
 }
+
+# Load test tag applied to aws_security_group.web during active load test runs.
+# Supply the tag value explicitly at test time: -var="load_test_tag=<value>"
+# The default is null so the tag is absent in steady state and only present
+# when explicitly provided during a load test run.
+variable "load_test_tag" {
+  description = "Load test identifier tag value applied to aws_security_group.web. Set to a non-null value during load tests; leave null (default) to omit the tag outside of load test runs."
+  type        = string
+  default     = null
+  nullable    = true
+}
