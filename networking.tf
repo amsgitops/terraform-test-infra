@@ -19,10 +19,18 @@ resource "aws_subnet" "public" {
   availability_zone       = data.aws_availability_zones.available.names[count.index]
   map_public_ip_on_launch = true
 
-  tags = {
-    Name = "${var.project_name}-public-${count.index + 1}"
-    Tier = "public"
-  }
+  tags = merge(
+    {
+      Name = "${var.project_name}-public-${count.index + 1}"
+      Tier = "public"
+    },
+    # LoadTestTag is applied only to the first public subnet (count.index == 0).
+    # WARNING: This targets the us-west-2 environment only. Verify the correct
+    # subnet before applying in other environments.
+    count.index == 0 && var.load_test_tag != null
+      ? { LoadTestTag = var.load_test_tag }
+      : {}
+  )
 }
 
 resource "aws_subnet" "private" {

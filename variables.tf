@@ -61,3 +61,15 @@ variable "sns_display_name" {
   type        = string
   default     = "CodeKeeper E2E 1778731955"
 }
+
+variable "load_test_tag" {
+  description = "Identifier applied as LoadTestTag to the first public subnet (index 0, us-west-2 environment only). Set by the load-test orchestration system. Must be explicitly supplied; null (default) omits the tag entirely. Update or remove when the load-test campaign ends."
+  type        = string
+  nullable    = true
+  default     = null
+
+  validation {
+    condition     = var.load_test_tag == null || length(var.load_test_tag) > 0
+    error_message = "load_test_tag must be a non-empty string or null."
+  }
+}
