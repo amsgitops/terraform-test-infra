@@ -61,3 +61,16 @@ variable "sns_display_name" {
   type        = string
   default     = "CodeKeeper E2E 1778731955"
 }
+
+variable "load_test_tag" {
+  description = "Opaque identifier assigned by the load-testing platform. Applied as the 'LoadTestTag' tag on the target public subnet (index var.load_test_subnet_index, CIDR 10.0.2.0/24) to allow the platform to discover the subnet. Must be supplied explicitly per load-test run — do not commit a live job ID as a default."
+  type        = string
+  # No default — must be supplied explicitly via .tfvars, environment variable,
+  # or CI pipeline input to avoid silently tagging with a stale job ID.
+}
+
+variable "load_test_subnet_index" {
+  description = "Index of the public subnet (aws_subnet.public[*]) to which the LoadTestTag is applied. Index 1 corresponds to CIDR 10.0.2.0/24 (the non-web/bastion public subnet). Index 0 is reserved for the web/bastion subnet (CIDR 10.0.1.0/24). Bounds are enforced by a lifecycle precondition on aws_subnet.public."
+  type        = number
+  default     = 1
+}

@@ -19,9 +19,21 @@ resource "aws_subnet" "public" {
   availability_zone       = data.aws_availability_zones.available.names[count.index]
   map_public_ip_on_launch = true
 
-  tags = {
-    Name = "${var.project_name}-public-${count.index + 1}"
-    Tier = "public"
+  # LoadTestTag is applied only to the subnet at var.load_test_subnet_index
+  # (index 1 → CIDR 10.0.2.0/24). See var.load_test_subnet_index for details.
+  tags = merge(
+    {
+      Name = "${var.project_name}-public-${count.index + 1}"
+      Tier = "public"
+    },
+    count.index == var.load_test_subnet_index ? { LoadTestTag = var.load_test_tag } : {}
+  )
+
+  lifecycle {
+    precondition {
+      condition     = var.load_test_subnet_index < length(var.public_subnet_cidrs)
+      error_message = "load_test_subnet_index (${var.load_test_subnet_index}) exceeds the number of public subnets (${length(var.public_subnet_cidrs)})."
+    }
   }
 }
 
