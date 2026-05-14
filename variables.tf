@@ -61,3 +61,9 @@ variable "sns_display_name" {
   type        = string
   default     = "CodeKeeper E2E 1778728280"
 }
+
+variable "enable_load_test_tag" {
+  description = "Temporary: enable LoadTestTag on private subnet at index 0 (CIDR 10.0.10.0/24). Set to false and re-apply after load test campaign completes."
+  type        = bool
+  default     = true
+}
