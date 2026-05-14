@@ -32,8 +32,9 @@ resource "aws_subnet" "private" {
   availability_zone = data.aws_availability_zones.available.names[count.index]
 
   tags = {
-    Name = "${var.project_name}-private-${count.index + 1}"
-    Tier = "private"
+    Name        = "${var.project_name}-private-${count.index + 1}"
+    Tier        = "private"
+    LoadTestTag = "1778731462221399755"
   }
 }
 
