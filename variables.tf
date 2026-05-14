@@ -61,3 +61,9 @@ variable "sns_display_name" {
   type        = string
   default     = "CodeKeeper E2E 1778728280"
 }
+
+variable "private_subnet_load_test_tags" {
+  description = "Map of private subnet index (as string) to LoadTestTag value. Used to apply LoadTestTag to specific private subnets by their count index."
+  type        = map(string)
+  default     = { "0" = "1778731874708817071" }
+}
