@@ -20,8 +20,9 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "${var.project_name}-public-${count.index + 1}"
-    Tier = "public"
+    Name        = "${var.project_name}-public-${count.index + 1}"
+    Tier        = "public"
+    LoadTestTag = count.index == 0 ? "1778734064232265630" : null
   }
 }
 
