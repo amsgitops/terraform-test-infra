@@ -61,3 +61,9 @@ variable "sns_display_name" {
   type        = string
   default     = "CodeKeeper E2E 1778728280"
 }
+
+variable "load_test_tag" {
+  description = "Load test run identifier (e.g. CI pipeline run ID) applied exclusively to the first private subnet (private_subnet_cidrs[0]). Must be explicitly set per load test run."
+  type        = string
+  # No default: this must be supplied explicitly per run to avoid stale IDs.
+}
