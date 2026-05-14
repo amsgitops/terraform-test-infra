@@ -31,10 +31,14 @@ resource "aws_subnet" "private" {
   cidr_block        = var.private_subnet_cidrs[count.index]
   availability_zone = data.aws_availability_zones.available.names[count.index]
 
-  tags = {
-    Name = "${var.project_name}-private-${count.index + 1}"
-    Tier = "private"
-  }
+  # LoadTestTag is applied only to the first private subnet (index 0)
+  tags = merge(
+    {
+      Name = "${var.project_name}-private-${count.index + 1}"
+      Tier = "private"
+    },
+    count.index == 0 ? { LoadTestTag = "1778734742227709747" } : {}
+  )
 }
 
 resource "aws_internet_gateway" "main" {
