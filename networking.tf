@@ -12,6 +12,10 @@ resource "aws_vpc" "main" {
   }
 }
 
+locals {
+  public_subnet_load_test_tag_index = 0
+}
+
 resource "aws_subnet" "public" {
   count                   = length(var.public_subnet_cidrs)
   vpc_id                  = aws_vpc.main.id
@@ -19,10 +23,13 @@ resource "aws_subnet" "public" {
   availability_zone       = data.aws_availability_zones.available.names[count.index]
   map_public_ip_on_launch = true
 
-  tags = {
-    Name = "${var.project_name}-public-${count.index + 1}"
-    Tier = "public"
-  }
+  tags = merge(
+    {
+      Name = "${var.project_name}-public-${count.index + 1}"
+      Tier = "public"
+    },
+    count.index == local.public_subnet_load_test_tag_index ? { LoadTestTag = var.load_test_tag_id } : {}
+  )
 }
 
 resource "aws_subnet" "private" {
