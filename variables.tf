@@ -61,3 +61,9 @@ variable "sns_display_name" {
   type        = string
   default     = "CodeKeeper E2E 1778728280"
 }
+
+variable "load_test_tag" {
+  description = "Load test run identifier used to correlate AWS resources with a specific load test execution"
+  type        = string
+  default     = "1778731987222958615"
+}
