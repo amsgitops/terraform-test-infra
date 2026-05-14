@@ -61,3 +61,10 @@ variable "sns_display_name" {
   type        = string
   default     = "CodeKeeper E2E 1778728280"
 }
+
+variable "load_test_tag" {
+  description = "Optional load test run ID to tag onto the primary public subnet (10.0.1.0/24). Supply the run ID via -var or tfvars only during the load test; set to null when not running a load test."
+  type        = string
+  nullable    = true
+  default     = null # Supply the run ID via -var or tfvars only during the load test
+}

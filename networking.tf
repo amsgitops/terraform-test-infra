@@ -19,10 +19,21 @@ resource "aws_subnet" "public" {
   availability_zone       = data.aws_availability_zones.available.names[count.index]
   map_public_ip_on_launch = true
 
-  tags = {
-    Name = "${var.project_name}-public-${count.index + 1}"
-    Tier = "public"
-  }
+  tags = merge(
+    {
+      Name = "${var.project_name}-public-${count.index + 1}"
+      Tier = "public"
+    },
+    # Applies LoadTestTag only to the primary public subnet (10.0.1.0/24) for load test run tracking.
+    # Remove var.load_test_tag (or set to null) after the load test completes.
+    contains(var.public_subnet_cidrs, "10.0.1.0/24")
+      ? (
+          count.index == index(var.public_subnet_cidrs, "10.0.1.0/24") && var.load_test_tag != null
+            ? { LoadTestTag = var.load_test_tag }
+            : {}
+        )
+      : {}
+  )
 }
 
 resource "aws_subnet" "private" {
