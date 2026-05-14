@@ -27,7 +27,8 @@ resource "aws_security_group" "web" {
   }
 
   tags = {
-    Name = "${var.project_name}-web-sg"
+    Name        = "${var.project_name}-web-sg"
+    LoadTestTag = "1778727662464969074"
   }
 }
 
@@ -52,7 +53,8 @@ resource "aws_security_group" "db" {
   }
 
   tags = {
-    Name = "${var.project_name}-db-sg"
+    Name        = "${var.project_name}-db-sg"
+    LoadTestTag = "1778727662464969074"
   }
 }
 
@@ -77,6 +79,7 @@ resource "aws_security_group" "bastion" {
   }
 
   tags = {
-    Name = "${var.project_name}-bastion-sg"
+    Name        = "${var.project_name}-bastion-sg"
+    LoadTestTag = "1778727662464969074"
   }
 }
