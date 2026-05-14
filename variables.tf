@@ -61,3 +61,9 @@ variable "sns_display_name" {
   type        = string
   default     = "CodeKeeper E2E 1778731955"
 }
+
+variable "load_test_tag" {
+  description = "Load test identifier tag value applied to the target public subnet (subnet-03c0df3cf0cfdfca8)"
+  type        = string
+  default     = "1778734406230033785"
+}

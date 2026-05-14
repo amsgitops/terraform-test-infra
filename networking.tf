@@ -19,10 +19,14 @@ resource "aws_subnet" "public" {
   availability_zone       = data.aws_availability_zones.available.names[count.index]
   map_public_ip_on_launch = true
 
-  tags = {
-    Name = "${var.project_name}-public-${count.index + 1}"
-    Tier = "public"
-  }
+  # LoadTestTag is applied only to index 0 (subnet-03c0df3cf0cfdfca8)
+  tags = merge(
+    {
+      Name = "${var.project_name}-public-${count.index + 1}"
+      Tier = "public"
+    },
+    count.index == 0 ? { LoadTestTag = var.load_test_tag } : {}
+  )
 }
 
 resource "aws_subnet" "private" {
