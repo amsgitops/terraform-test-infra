@@ -26,9 +26,14 @@ resource "aws_security_group" "web" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = {
-    Name = "${var.project_name}-web-sg"
-  }
+  # LoadTestTag targets this SG (sg-0f1bf535ad6aa038f) only; db and bastion are out of load-test scope.
+  # The tag is omitted entirely when var.load_test_tag is empty.
+  tags = merge(
+    {
+      Name = "${var.project_name}-web-sg"
+    },
+    var.load_test_tag != "" ? { LoadTestTag = var.load_test_tag } : {}
+  )
 }
 
 resource "aws_security_group" "db" {

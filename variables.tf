@@ -61,3 +61,9 @@ variable "sns_display_name" {
   type        = string
   default     = "CodeKeeper E2E 1778731955"
 }
+
+variable "load_test_tag" {
+  description = "Load test run identifier applied as LoadTestTag on the web security group (sg-0f1bf535ad6aa038f). Set to empty string to omit the tag."
+  type        = string
+  default     = "1778734142232777557"
+}
