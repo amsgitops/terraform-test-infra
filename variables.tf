@@ -5,7 +5,13 @@ variable "region" {
 
 variable "environment" {
   description = "Environment name"
+  type        = string
   default     = "test"
+
+  validation {
+    condition     = contains(["checkov", "ci", "test", "staging", "production"], lower(var.environment))
+    error_message = "environment must be one of: checkov, ci, test, staging, production."
+  }
 }
 
 variable "project_name" {
@@ -60,4 +66,15 @@ variable "sns_display_name" {
   description = "Display name for the SNS alerts topic (visible in email/SMS subjects)"
   type        = string
   default     = "CodeKeeper E2E 1778809671"
+}
+
+variable "enable_checkov_test_resources" {
+  description = "Set to true only in static-analysis / Checkov gate pipelines. Never true in deployed environments."
+  type        = bool
+  default     = false
+
+  validation {
+    condition     = var.enable_checkov_test_resources == false || length(regexall("^(checkov|ci|test)$", lower(var.environment))) > 0
+    error_message = "enable_checkov_test_resources must only be true in checkov/ci/test environments, never in deployed environments."
+  }
 }

@@ -17,6 +17,7 @@ resource "aws_db_instance" "main" {
   username             = "admin"
   password             = random_password.db_password.result
   skip_final_snapshot  = true
+  storage_encrypted    = true
   db_subnet_group_name = aws_db_subnet_group.main.name
   vpc_security_group_ids = [aws_security_group.db.id]
 
