@@ -59,5 +59,11 @@ variable "alarm_email" {
 variable "sns_display_name" {
   description = "Display name for the SNS alerts topic (visible in email/SMS subjects)"
   type        = string
-  default     = "CodeKeeper E2E 1779488226"
+  nullable    = false
+  default     = "CodeKeeper Alerts"
+
+  validation {
+    condition     = length(trimspace(var.sns_display_name)) >= 1 && length(var.sns_display_name) <= 100
+    error_message = "SNS display_name must be between 1 and 100 characters (AWS console/email limit; may be truncated for SMS delivery depending on carrier and region)."
+  }
 }
