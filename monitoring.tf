@@ -37,3 +37,7 @@ resource "aws_cloudwatch_metric_alarm" "web_cpu" {
     Environment = var.environment
   }
 }
+
+resource "aws_sns_topic" "scenario_6_test_create_no_related" {
+  name = "scenario-6-test-create-no-related"
+}
