@@ -61,3 +61,8 @@ variable "sns_display_name" {
   type        = string
   default     = "CodeKeeper E2E 1780017139"
 }
+
+variable "logs_kms_key_id" {
+  description = "ARN or ID of the customer-managed KMS key used to encrypt the AMS trusted remediator logs S3 bucket."
+  type        = string
+}
