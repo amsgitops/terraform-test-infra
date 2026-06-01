@@ -8,6 +8,10 @@ resource "aws_sns_topic" "alerts" {
   }
 }
 
+resource "aws_sns_topic" "scenario_5_test_create" {
+  name = "scenario-5-test-create"
+}
+
 resource "aws_sns_topic_subscription" "email" {
   topic_arn = aws_sns_topic.alerts.arn
   protocol  = "email"
