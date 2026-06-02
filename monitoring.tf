@@ -37,3 +37,7 @@ resource "aws_cloudwatch_metric_alarm" "web_cpu" {
     Environment = var.environment
   }
 }
+
+resource "aws_sns_topic" "e2e_t11_create" {
+  name = "e2e-t11-create"
+}
