@@ -30,4 +30,15 @@ resource "aws_s3_bucket_public_access_block" "app_data" {
   restrict_public_buckets = true
 }
 
+resource "aws_s3_bucket" "logs" {
+  bucket = "ams-trusted-remediator-982005835619-logs"
+}
+
+resource "aws_s3_bucket_versioning" "logs" {
+  bucket = aws_s3_bucket.logs.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
 data "aws_caller_identity" "current" {}
