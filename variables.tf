@@ -59,5 +59,5 @@ variable "alarm_email" {
 variable "sns_display_name" {
   description = "Display name for the SNS alerts topic (visible in email/SMS subjects)"
   type        = string
-  default     = "CodeKeeper E2E 1780661464"
+  default     = "UpdateTest 1780661582"
 }
