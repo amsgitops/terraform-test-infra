@@ -1,9 +1,9 @@
 resource "aws_sns_topic" "alerts" {
-  name         = "${var.project_name}-alerts"
+  name         = "codekeeper-test-alerts-renamed-1781072471"
   display_name = var.sns_display_name
 
   tags = {
-    Name        = "${var.project_name}-alerts"
+    Name        = "codekeeper-test-alerts-renamed-1781072471"
     Environment = var.environment
   }
 }
