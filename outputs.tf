@@ -13,19 +13,9 @@ output "private_subnet_ids" {
   value       = aws_subnet.private[*].id
 }
 
-output "web_instance_id" {
-  description = "Web server instance ID"
-  value       = aws_instance.web.id
-}
-
 output "web_security_group_id" {
   description = "Web security group ID"
   value       = aws_security_group.web.id
-}
-
-output "alb_dns_name" {
-  description = "ALB DNS name"
-  value       = aws_lb.web.dns_name
 }
 
 output "db_endpoint" {
