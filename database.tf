@@ -41,3 +41,15 @@ resource "aws_ssm_parameter" "db_password" {
   type  = "SecureString"
   value = random_password.db_password.result
 }
+
+resource "aws_dynamodb_table" "new_test_table" {
+  name         = "new-test-table"
+  billing_mode = "PAY_PER_REQUEST"
+
+  attribute {
+    name = "id"
+    type = "S"
+  }
+
+  hash_key = "id"
+}
