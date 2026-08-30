@@ -31,3 +31,7 @@ resource "aws_s3_bucket_public_access_block" "app_data" {
 }
 
 data "aws_caller_identity" "current" {}
+
+resource "aws_s3_bucket" "checkov_decouple_test_1781152800" {
+  bucket = "checkov-decouple-test-1781152800"
+}
